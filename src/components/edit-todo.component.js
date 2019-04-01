@@ -21,7 +21,7 @@ export default class EditTodo extends Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get('https://tripi-todo-react-server.herokuapp.com/'+this.props.match.params.id)
             .then(response => {
                 this.setState({
@@ -61,24 +61,46 @@ export default class EditTodo extends Component {
         });
     }
 
-    onSubmit(e) {
-        e.preventDefault();
+    async onSubmit(e) {
+        await e.preventDefault();
         const obj = {
             todo_description: this.state.todo_description,
             todo_responsible: this.state.todo_responsible,
             todo_priority: this.state.todo_priority,
             todo_completed: this.state.todo_completed
         };
-        axios.post('https://tripi-todo-react-server.herokuapp.com/update/'+this.props.match.params.id, obj)
+        await axios.post('https://tripi-todo-react-server.herokuapp.com/update/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));
-        
-        this.props.history.push('/');
+        await axios.get('https://tripi-todo-react-server.herokuapp.com/'+this.props.match.params.id)
+            .then(response => {
+                this.setState({
+                    todo_description: response.data.todo_description,
+                    todo_responsible: response.data.todo_responsible,
+                    todo_priority: response.data.todo_priority,
+                    todo_completed: response.data.todo_completed
+                })   
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        await this.props.history.push('/');
     }
 
-    onDeleteTodo(e) {
-        axios.delete('https://tripi-todo-react-server.herokuapp.com/delete/'+this.props.match.params.id)
-            .then(res => alert(res.data));
-        this.props.history.push('/');
+    async onDeleteTodo(e) {
+        await axios.delete('https://tripi-todo-react-server.herokuapp.com/delete/'+this.props.match.params.id)
+        await axios.get('https://tripi-todo-react-server.herokuapp.com/'+this.props.match.params.id)
+            .then(response => {
+                this.setState({
+                    todo_description: response.data.todo_description,
+                    todo_responsible: response.data.todo_responsible,
+                    todo_priority: response.data.todo_priority,
+                    todo_completed: response.data.todo_completed
+                })   
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        await this.props.history.push('/');
     }
 
     render() {
@@ -87,7 +109,7 @@ export default class EditTodo extends Component {
                 <h3 align="center">Update Todo</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
-                        <label>Description: </label>
+                        <label>Mô tả: </label>
                         <input  type="text"
                                 className="form-control"
                                 value={this.state.todo_description}
@@ -95,7 +117,7 @@ export default class EditTodo extends Component {
                                 />
                     </div>
                     <div className="form-group">
-                        <label>Responsible: </label>
+                        <label>Người thực hiện: </label>
                         <input 
                                 type="text" 
                                 className="form-control"
@@ -113,7 +135,7 @@ export default class EditTodo extends Component {
                                     checked={this.state.todo_priority==='Low'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
-                            <label className="form-check-label">Low</label>
+                            <label className="form-check-label">Thấp</label>
                         </div>
                         <div className="form-check form-check-inline">
                             <input  className="form-check-input" 
@@ -124,7 +146,7 @@ export default class EditTodo extends Component {
                                     checked={this.state.todo_priority==='Medium'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
-                            <label className="form-check-label">Medium</label>
+                            <label className="form-check-label">Trung Bình</label>
                         </div>
                         <div className="form-check form-check-inline">
                             <input  className="form-check-input" 
@@ -135,7 +157,7 @@ export default class EditTodo extends Component {
                                     checked={this.state.todo_priority==='High'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
-                            <label className="form-check-label">High</label>
+                            <label className="form-check-label">Cao</label>
                         </div>
                     </div>
                     <div className="form-check">
@@ -148,7 +170,7 @@ export default class EditTodo extends Component {
                                 value={this.state.todo_completed}
                                 />
                         <label className="form-check-label" htmlFor="completedCheckbox">
-                            Completed
+                            Hoàn thành
                         </label>                        
                     </div>
 

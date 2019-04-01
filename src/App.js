@@ -26,16 +26,6 @@ class App extends Component {
               <img src={Logo} width="64" height="30" alt="Tripi" />
             </a>
             <Link to="/" className="navbar-brand">Todo App</Link>
-            <div className="collpase navbar-collapse">
-              <ul className="navbar-nav mr-auto">
-                <li className="navbar-item">
-                  <Link to="/" className="nav-link">Todos</Link>
-                </li>
-                <li className="navbar-item">
-                  <Link to="/create" className="nav-link">Create Todo</Link>
-                </li>
-              </ul>
-            </div>
           </nav>
           <br/>
           <Route path="/" exact component={TodoList} />

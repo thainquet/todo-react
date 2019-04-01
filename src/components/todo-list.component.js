@@ -8,7 +8,7 @@ const Todo = props => (
         <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_responsible}</td>
         <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_priority}</td>
         <td>
-            <Link to={"/edit/"+props.todo._id}>Edit</Link>
+            <Link to={"/edit/"+props.todo._id}>Sửa</Link>
         </td>
     </tr>
 )
@@ -40,19 +40,20 @@ export default class TodosList extends Component {
         return (
             <div>
                 <h3>Todos List</h3>
-                <table className="table table-striped" style={{ marginTop: 20 }} >
+                <table className="table table-striped centered" style={{ marginTop: 20 }} >
                     <thead>
                         <tr>
-                            <th>Description</th>
-                            <th>Responsible</th>
-                            <th>Priority</th>
-                            <th>Action</th>
+                            <th>Mô tả</th>
+                            <th>Người thực hiện</th>
+                            <th>Độ ưu tiên</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         { this.todoList() }
                     </tbody>
                 </table>
+                <Link to="/create" className="nav-link" style={{textAlign: "center"}}><input type="button" value="Create New Todo" className="btn btn-primary" /></Link>
             </div>
         )
     }

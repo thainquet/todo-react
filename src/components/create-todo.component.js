@@ -38,13 +38,8 @@ export default class CreateTodo extends Component {
         });
     }
 
-    onSubmit(e) {
-        e.preventDefault();
-        
-        console.log(`Form submitted:`);
-        console.log(`Todo Description: ${this.state.todo_description}`);
-        console.log(`Todo Responsible: ${this.state.todo_responsible}`);
-        console.log(`Todo Priority: ${this.state.todo_priority}`);
+    async onSubmit(e) {
+        await e.preventDefault();
         
         const newTodo = {
             todo_description: this.state.todo_description,
@@ -53,26 +48,36 @@ export default class CreateTodo extends Component {
             todo_completed: this.state.todo_completed
         }
 
-        axios.post('https://tripi-todo-react-server.herokuapp.com/add', newTodo)
-        .then(res => alert(res.data.todo));
-
-        this.setState({
-            todo_description: '',
-            todo_responsible: '',
-            todo_priority: '',
-            todo_completed: false
+        await axios.post('https://tripi-todo-react-server.herokuapp.com/add', newTodo)
+        await axios.get('https://tripi-todo-react-server.herokuapp.com/'+this.props.match.params.id)
+        .then(response => {
+            this.setState({
+                todo_description: response.data.todo_description,
+                todo_responsible: response.data.todo_responsible,
+                todo_priority: response.data.todo_priority,
+                todo_completed: response.data.todo_completed
+            })   
         })
-        
-        window.location.href("/");
+        .catch(function (error) {
+            console.log(error);
+        })
+        await this.props.history.push('/');
+        // this.setState({
+        //     todo_description: '',
+        //     todo_responsible: '',
+        //     todo_priority: '',
+        //     todo_completed: false
+        // })
+        // this.props.history.push('/')
     }
 
     render() {
         return (
             <div style={{marginTop: 10}}>
-                <h3>Create New Todo</h3>
+                <h3>Tạo mới công việc</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group"> 
-                        <label>Description: </label>
+                        <label>Mô tả: </label>
                         <input  type="text"
                                 className="form-control"
                                 value={this.state.todo_description}
@@ -80,7 +85,7 @@ export default class CreateTodo extends Component {
                                 />
                     </div>
                     <div className="form-group">
-                        <label>Responsible: </label>
+                        <label>Người thực hiện: </label>
                         <input 
                                 type="text" 
                                 className="form-control"
@@ -98,7 +103,7 @@ export default class CreateTodo extends Component {
                                     checked={this.state.todo_priority==='Low'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
-                            <label className="form-check-label">Low</label>
+                            <label className="form-check-label">Thấp</label>
                         </div>
                         <div className="form-check form-check-inline">
                             <input  className="form-check-input" 
@@ -109,7 +114,7 @@ export default class CreateTodo extends Component {
                                     checked={this.state.todo_priority==='Medium'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
-                            <label className="form-check-label">Medium</label>
+                            <label className="form-check-label">Trung Bình</label>
                         </div>
                         <div className="form-check form-check-inline">
                             <input  className="form-check-input" 
@@ -120,7 +125,7 @@ export default class CreateTodo extends Component {
                                     checked={this.state.todo_priority==='High'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
-                            <label className="form-check-label">High</label>
+                            <label className="form-check-label">Cao</label>
                         </div>
                     </div>
 
