@@ -8,7 +8,11 @@ const Todo = props => (
         <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_responsible}</td>
         <td className={props.todo.todo_completed ? 'completed' : ''}>{props.todo.todo_priority}</td>
         <td>
+            {props.todo.todo_completed ? 
+            <Link to={"/delete/"+props.todo._id}>Xóa</Link> : 
             <Link to={"/edit/"+props.todo._id}>Sửa</Link>
+            }
+            
         </td>
     </tr>
 )
@@ -18,6 +22,10 @@ export default class TodosList extends Component {
     constructor(props) {
         super(props);
         this.state = {todos: []};
+    }
+
+    isRemove() {
+        return <Link to={"/edit/"+this.props.todo._id}>Xóa</Link>
     }
 
     componentWillMount() {
