@@ -62,13 +62,6 @@ export default class CreateTodo extends Component {
             console.log(error);
         })
         await this.props.history.push('/');
-        // this.setState({
-        //     todo_description: '',
-        //     todo_responsible: '',
-        //     todo_priority: '',
-        //     todo_completed: false
-        // })
-        // this.props.history.push('/')
     }
 
     render() {
@@ -80,7 +73,7 @@ export default class CreateTodo extends Component {
                         <label>Mô tả: </label>
                         <input  type="text"
                                 className="form-control"
-                                value={this.state.todo_description}
+                                value={this.state.todo_description || ''}
                                 onChange={this.onChangeTodoDescription}
                                 />
                     </div>
@@ -89,7 +82,7 @@ export default class CreateTodo extends Component {
                         <input 
                                 type="text" 
                                 className="form-control"
-                                value={this.state.todo_responsible}
+                                value={this.state.todo_responsible || ''}
                                 onChange={this.onChangeTodoResponsible}
                                 />
                     </div>

@@ -34,7 +34,6 @@ export default class EditTodo extends Component {
             .catch(function (error) {
                 console.log(error);
             })
-        console.log(this.props)
     }
 
     onChangeTodoDescription(e) {
@@ -70,7 +69,6 @@ export default class EditTodo extends Component {
             todo_completed: this.state.todo_completed
         };
         await axios.post('https://tripi-todo-react-server.herokuapp.com/update/'+this.props.match.params.id, obj)
-            .then(res => console.log(res.data));
         await axios.get('https://tripi-todo-react-server.herokuapp.com/'+this.props.match.params.id)
             .then(response => {
                 this.setState({
@@ -87,20 +85,7 @@ export default class EditTodo extends Component {
     }
 
     async onDeleteTodo(e) {
-        await axios.delete('https://tripi-todo-react-server.herokuapp.com/delete/'+this.props.match.params.id)
-        await axios.get('https://tripi-todo-react-server.herokuapp.com/'+this.props.match.params.id)
-            .then(response => {
-                this.setState({
-                    todo_description: response.data.todo_description,
-                    todo_responsible: response.data.todo_responsible,
-                    todo_priority: response.data.todo_priority,
-                    todo_completed: response.data.todo_completed
-                })   
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        await this.props.history.push('/');
+        await this.props.history.push('/delete/'+this.props.match.params.id);
     }
 
     render() {
