@@ -22,7 +22,7 @@ class App extends Component {
       <Router>
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="https://tripi.vn" target="_blank" rel="noopener noreferrer">
+            <a className="navbar-brand" href="/">
               <img src={Logo} width="64" height="30" alt="Tripi" />
             </a>
             <Link to="/" className="navbar-brand">Todo App</Link>
