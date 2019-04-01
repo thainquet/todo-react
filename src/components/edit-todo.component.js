@@ -131,8 +131,8 @@ export default class EditTodo extends Component {
                                     type="radio" 
                                     name="priorityOptions" 
                                     id="priorityLow" 
-                                    value="Low"
-                                    checked={this.state.todo_priority==='Low'} 
+                                    value="Thấp"
+                                    checked={this.state.todo_priority==='Thấp'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
                             <label className="form-check-label">Thấp</label>
@@ -142,8 +142,8 @@ export default class EditTodo extends Component {
                                     type="radio" 
                                     name="priorityOptions" 
                                     id="priorityMedium" 
-                                    value="Medium" 
-                                    checked={this.state.todo_priority==='Medium'} 
+                                    value="Trung Bình" 
+                                    checked={this.state.todo_priority==='Trung Bình'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
                             <label className="form-check-label">Trung Bình</label>
@@ -153,8 +153,8 @@ export default class EditTodo extends Component {
                                     type="radio" 
                                     name="priorityOptions" 
                                     id="priorityHigh" 
-                                    value="High" 
-                                    checked={this.state.todo_priority==='High'} 
+                                    value="Cao" 
+                                    checked={this.state.todo_priority==='Cao'} 
                                     onChange={this.onChangeTodoPriority}
                                     />
                             <label className="form-check-label">Cao</label>
