@@ -20,7 +20,7 @@ export default class TodosList extends Component {
         this.state = {todos: []};
     }
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get('https://tripi-todo-react-server.herokuapp.com/')
             .then(response => {
                 this.setState({ todos: response.data });

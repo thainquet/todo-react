@@ -11,6 +11,7 @@ export default class EditTodo extends Component {
         this.onChangeTodoPriority = this.onChangeTodoPriority.bind(this);
         this.onChangeTodoCompleted = this.onChangeTodoCompleted.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onDeleteTodo = this.onDeleteTodo.bind(this)
 
         this.state = {
             todo_description: '',
@@ -33,6 +34,7 @@ export default class EditTodo extends Component {
             .catch(function (error) {
                 console.log(error);
             })
+        console.log(this.props)
     }
 
     onChangeTodoDescription(e) {
@@ -67,10 +69,15 @@ export default class EditTodo extends Component {
             todo_priority: this.state.todo_priority,
             todo_completed: this.state.todo_completed
         };
-        console.log(obj);
         axios.post('https://tripi-todo-react-server.herokuapp.com/update/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));
         
+        this.props.history.push('/');
+    }
+
+    onDeleteTodo(e) {
+        axios.delete('https://tripi-todo-react-server.herokuapp.com/delete/'+this.props.match.params.id)
+            .then(res => alert(res.data));
         this.props.history.push('/');
     }
 
@@ -150,7 +157,10 @@ export default class EditTodo extends Component {
                     <div className="form-group">
                         <input type="submit" value="Update Todo" className="btn btn-primary" />
                     </div>
+                    
                 </form>
+                
+                <input type="button" onClick={this.onDeleteTodo} value="Delete Todo" className="btn btn-danger" />
             </div>
         )
     }

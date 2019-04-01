@@ -54,7 +54,7 @@ export default class CreateTodo extends Component {
         }
 
         axios.post('https://tripi-todo-react-server.herokuapp.com/add', newTodo)
-        .then(res => console.log(res.data));
+        .then(res => alert(res.data.todo));
 
         this.setState({
             todo_description: '',
@@ -63,7 +63,7 @@ export default class CreateTodo extends Component {
             todo_completed: false
         })
         
-        this.props.history.push('/');
+        window.location.href("/");
     }
 
     render() {
