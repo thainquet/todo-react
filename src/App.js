@@ -25,7 +25,7 @@ class App extends Component {
             <a className="navbar-brand" href="https://tripi.vn" target="_blank" rel="noopener noreferrer">
               <img src={Logo} width="64" height="30" alt="Tripi" />
             </a>
-            <Link to="/" className="navbar-brand">MERN-Stack Todo App</Link>
+            <Link to="/" className="navbar-brand">Todo App</Link>
             <div className="collpase navbar-collapse">
               <ul className="navbar-nav mr-auto">
                 <li className="navbar-item">
